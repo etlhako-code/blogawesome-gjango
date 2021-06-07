@@ -1,0 +1,55 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    
+	
+    <div class="container-fluid">
+  	
+	  	<!-- top section -->
+	    <div class="jumbotron text-center bg-secondary">
+	        <h1 class="text-white" >BlogAwesome</h1>
+	        <p class="text-white">{{title}}</p>
+	    </div>
+	</div>
+
+    <!-- picture section -->
+
+	    <div class="container-fluid">
+	    	
+	    	<!--curtesy of stackoverflow-->
+	    {%for post in posts%}
+	    	 
+	    	{%if forloop.first %}
+	    	   <div class="row">
+	    	{%endif%}
+	    	<div class="col-md-4 mb-4">
+	    		<span class="article-title ml-5">{{post.title}}</span><br>
+	    		<img  id="imgs" onclick="document.location.href='{% url 'post-detail' post.id %}';" src="{{ post.image.url }}" class="img-thumbnail responsive">
+	    		 
+	    		<span class="ml-2">by:<a class="mr-5 ml-1 mb-5" href="{% url 'user-posts' post.author.username %}">{{post.author}}</a></span>
+
+	    	</div>
+	    	<!-- create 3 columns per row-->
+	    	{%if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+	    	{%if forloop.last %}</div>{%endif%}
+	    {%endfor%}
+	    	<!--------->
+	    	<!---- bottom content-->
+	    	<br>
+	    	<div class="container text-center">
+	    		{% if object.author == user %}<!--only show when not logged in-->
+	    		<h6>Articles by users</h6>
+	    		<p id="date">log in to add yours</p>
+	    		{%endif%}
+	    		<blockquote class="blockquote">
+	    			<p>
+	    			blog </p>
+	    			<footer class="blockquote-footer">
+	    				by : <a style="background-color:black;color:white;text-decoration:none;padding:4px 6px;font-family:-apple-system, BlinkMacSystemFont, &quot;San Francisco&quot;, &quot;Helvetica Neue&quot;, Helvetica, Ubuntu, Roboto, Noto, &quot;Segoe UI&quot;, Arial, sans-serif;font-size:12px;font-weight:bold;line-height:1.2;display:inline-block;border-radius:3px" href=""><span style="display:inline-block;padding:2px 3px"><svg xmlns="http://www.w3.org/2000/svg" style="height:12px;width:auto;position:relative;vertical-align:middle;top:-2px;fill:white" viewBox="0 0 32 32"><title>unsplash-logo</title><path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"></path></svg></span><span style="display:inline-block;padding:2px 3px">
+	    				Ephraim Tlhako</span></a>
+	    			</footer>
+	    		</blockquote>
+	    	</div>
+
+	    </div>
+	
+{% endblock content %}
